@@ -45,8 +45,21 @@ function AddUser() {
     let {name,value} = e.target
 
     setFormData((prevData)=>{
-      return {...prevData,[name]:value}
+      let newData = {...prevData}
+      let temp = newData;
+      let keys = name.split(".")
+
+      for(let i=0; i < keys.length-1;i++){
+      if(!temp[keys[i]])
+        temp[keys[i]] = {}
+      
+        temp = temp[keys[i]]
+      
+      }
+      temp[keys[keys.length-1]] = value;
+      return newData;
     })
+
   }
 
   //To handle addition of user in API.
